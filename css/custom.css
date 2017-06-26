@@ -386,3 +386,59 @@ float: none;
     padding-left: 4rem;
     padding-right: 4rem
 }
+.justify-start { justify-content: flex-start; }/*mods*/
+.justify-center { justify-content: center; }/*mods*/
+.justify-between { justify-content: space-between; }/*mods*/
+.justify-around { justify-content: space-around; }/*mods*/
+.justify-end { justify-content: flex-end; }/*mods*/
+
+.align-center { align-content: center; }/*mods*/
+.align-items-center { align-items: center; }/*mods*/
+.align-items-start { align-items: flex-start; }/*mods*/
+.align-items-end { align-items: flex-end; }/*mods*/
+
+
+:root {
+
+--aqua:  #7FDBFF;
+--blue:  #0074D9;
+--navy:  #001F3F;
+--teal:  #39CCCC;
+--green: #2ECC40;
+--olive: #3D9970;
+--lime:  #01FF70;
+
+--yellow:  #FFDC00;
+--orange:  #FF851B;
+--red:     #FF4136;
+--fuchsia: #F012BE;
+--purple:  #B10DC9;
+--maroon:  #85144B;
+
+--white:  #FFFFFF;
+--silver: #DDDDDD;
+--gray:   #AAAAAA;
+--black:  #111111;
+
+}
+
+
+.border-black  { border-color: var(--black) }
+.border-gray   { border-color: var(--gray) }
+.border-silver { border-color: var(--silver) }
+.border-white  { border-color: var(--white) }
+
+.border-aqua  { border-color: var(--aqua) }
+.border-blue  { border-color: var(--blue) }
+.border-navy  { border-color: var(--navy) }
+.border-teal  { border-color: var(--teal) }
+.border-green { border-color: var(--green) }
+.border-olive { border-color: var(--olive) }
+.border-lime  { border-color: var(--lime) }
+
+.border-yellow  { border-color: var(--yellow) }
+.border-orange  { border-color: var(--orange) }
+.border-red     { border-color: var(--red) }
+.border-fuchsia { border-color: var(--fuchsia) }
+.border-purple  { border-color: var(--purple) }
+.border-maroon { border-color: var(--maroon) }

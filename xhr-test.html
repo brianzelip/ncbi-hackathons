@@ -52,9 +52,33 @@
         }
         oReq2.send();
       }
+    </script>
+
+    <script>
+      // source of my XHRs used for the above work:
+
+      // don't remember where this code came from:
+
+      // var xhr = new XMLHttpRequest();
+      // xhr.responseType = 'json';
+      // xhr.open("GET", "https://api.github.com/repos/brianzelip/Azellaz.com/languages");
+      // xhr.setRequestHeader("Content-Type", "application/json");
+      // xhr.setRequestHeader("Accept", "application/json");
+      // xhr.onload = function () {
+      //   console.log('data returned:', xhr.response);
+      // }
+      // xhr.send();
 
 
+      // via MDN, https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest
 
+      // var oReq = new XMLHttpRequest();
+      // oReq.open("GET", "https://api.github.com/users/ncbi-hackathons/repos");
+      // oReq.responseType = 'json';
+      // oReq.onload = function() {
+      //   console.log('data returned:', oReq.response);
+      // }
+      // oReq.send();
     </script>
 
   </body>

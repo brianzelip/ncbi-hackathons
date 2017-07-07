@@ -1,0 +1,25 @@
+{
+  organization(login: "NCBI-Hackathons") {
+    login
+    repositories(first: 100) {
+      totalCount
+      nodes {
+        name
+        license
+        description
+        url
+        updatedAt
+        languages(first: 1) {
+          edges {
+            node {
+              name
+            }
+          }
+        }
+        releases(first: 1) {
+          totalCount
+        }
+      }
+    }
+  }
+}

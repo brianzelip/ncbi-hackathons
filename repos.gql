@@ -1,4 +1,4 @@
-{
+query {
   organization(login: "NCBI-Hackathons") {
     login
     repositories(first: 100) {

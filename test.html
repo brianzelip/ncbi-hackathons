@@ -99,15 +99,16 @@
     </section>
 
     <section class="bg-darken-1">
+      <div class="container p2">
+        <div class="mxn2">
 
-      {% include hackathon-product-section.html %}
+          <h1 class="h0 mt0 px3 regular">NCBI Hackathon Products</h1>
+
+          <div id="softwareProducts" class="flex flex-wrap p2"></div>
+
+        </div>
+      </div>
     </section>
-
-    <section>
-      <h1>hello</h1>
-    </section>
-
-    <ol id="test"></ol>
 
     <script>
     /*
@@ -150,10 +151,33 @@
       get(glitch)
         .then( (response) => JSON.parse(response) )
         .then( (response) => {
-          const list = document.getElementById('test');
+          const productList = document.getElementById('softwareProducts');
+
+          function getManuscript(productId) {
+            return (response.data.organization.repositories.nodes[productId].issues.edges.length === 1)
+              ? ` | <a href="${response.data.organization.repositories.nodes[productId].issues.edges[0].node.body}"><i class="fa fa-book fa-lg"></i> manuscript</a>`
+              : ``;
+          };
+
           for (let i=0; i<response.data.organization.repositories.nodes.length; i++) {
-            list.innerHTML = list.innerHTML + `<li>${response.data.organization.repositories.nodes[i].name}</li>`
+            productList.innerHTML = productList.innerHTML + `<div class="col-12 sm-col-6 md-col-4 p2 flex overflow-scroll">
+                          <div class="col-12 border rounded-top bg-white">
+                            <div>
+                              <div class="p2 bg-soft-black rounded-top">
+                                <p class="white bold h2 mb0"> ${response.data.organization.repositories.nodes[i].name}</p>
+                              </div>
+                              <div class="p2">
+                                <p> ${response.data.organization.repositories.nodes[i].description}</p>
+                                <div class="small">
+                                  <a href="${response.data.organization.repositories.nodes[i].url}"><i class="fa fa-github fa-lg"></i> source code</a>${getManuscript(i)}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+            `
           }
+
           return response;
         })
 

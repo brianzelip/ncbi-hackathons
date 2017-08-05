@@ -189,30 +189,46 @@
           };
 
           for (let i=0; i<response.data.organization.repositories.nodes.length; i++) {
-            const product = {
-              "displayTitle": getRepoTitle(i),
-              "description": response.data.organization.repositories.nodes[i].description,
-              "repoURL": response.data.organization.repositories.nodes[i].url,
-              "manuscriptURL": getManuscriptURL(i)
+            if (response.data.organization.repositories.nodes[i].releases.totalCount > 0) {
+              const product = {
+                "displayTitle": getRepoTitle(i),
+                "description": response.data.organization.repositories.nodes[i].description,
+                "repoURL": response.data.organization.repositories.nodes[i].url,
+                "manuscriptURL": getManuscriptURL(i),
+                "language": response.data.organization.repositories.nodes[i].primaryLanguage
+              };
+
+              productList.innerHTML = productList.innerHTML + `
+              <div class="col-12 sm-col-6 md-col-4 p2 flex overflow-scroll">
+                <div class="col-12 border rounded-top bg-white">
+                  <div>
+                    <div class="p2 bg-soft-black rounded-top">
+                      <p class="white bold h2 mb0">
+                        ${(product.displayTitle)
+                          ? product.displayTitle
+                          : response.data.organization.repositories.nodes[i].name
+                        }
+                      </p>
+                    </div>
+                    <div class="p2">
+                      ${(product.description)
+                        ? `<p>${product.description}</p>`
+                        : ``
+                      }
+                      <div class="small">
+                        <a href="${product.repoURL}"><i class="fa fa-github fa-lg"></i> source code</a>
+                        ${(product.manuscriptURL)
+                          ? ` | <a href="${product.manuscriptURL}"><i class="fa fa-book fa-lg"></i> manuscript</a>`
+                          : ``
+                        }
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>`;
+              // console.log(labelMetadata(i))
+              console.log(getManuscriptURL(i));
             }
-            productList.innerHTML = productList.innerHTML + `<div class="col-12 sm-col-6 md-col-4 p2 flex overflow-scroll">
-                          <div class="col-12 border rounded-top bg-white">
-                            <div>
-                              <div class="p2 bg-soft-black rounded-top">
-                                <p class="white bold h2 mb0"> ${(product.displayTitle) ? product.displayTitle : response.data.organization.repositories.nodes[i].name}</p>
-                              </div>
-                              <div class="p2">
-                                <p> ${product.description}</p>
-                                <div class="small">
-                                  <a href="${product.repoURL}"><i class="fa fa-github fa-lg"></i> source code</a>${product.manuscriptURL}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-            `;
-            // console.log(labelMetadata(i))
-            console.log(getManuscriptURL(i));
           }
 
           return response;

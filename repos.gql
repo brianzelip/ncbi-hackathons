@@ -17,9 +17,10 @@ query {
         releases(first: 1) {
           totalCount
         }
-        issues(first: 100, labels: "manuscript") {
+        issues(first: 100, labels: ["manuscript", "title"]) {
           edges {
             node {
+              title
               body
             }
           }

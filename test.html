@@ -152,9 +152,10 @@
         .then( (response) => JSON.parse(response) )
         .then( (response) => {
           const productList = document.getElementById('softwareProducts');
+          const reposArr = response.data.organization.repositories.nodes;
 
           function labelMetadata(productId) {
-            let metaArr = response.data.organization.repositories.nodes[productId].issues.edges;
+            let metaArr = reposArr[productId].issues.edges;
 
             return (metaArr.length > 0)
               ? metaArr.reduce( (metadata, item) => {
@@ -188,14 +189,14 @@
             };
           };
 
-          for (let i=0; i<response.data.organization.repositories.nodes.length; i++) {
-            if (response.data.organization.repositories.nodes[i].releases.totalCount > 0) {
+          for (let i=0; i<reposArr.length; i++) {
+            if (reposArr[i].releases.totalCount > 0) {
               const product = {
                 "displayTitle": getRepoTitle(i),
-                "description": response.data.organization.repositories.nodes[i].description,
-                "repoURL": response.data.organization.repositories.nodes[i].url,
+                "description": reposArr[i].description,
+                "repoURL": reposArr[i].url,
                 "manuscriptURL": getManuscriptURL(i),
-                "language": response.data.organization.repositories.nodes[i].primaryLanguage
+                "language": reposArr[i].primaryLanguage
               };
 
               productList.innerHTML = productList.innerHTML + `
@@ -206,7 +207,7 @@
                       <p class="white bold h2 mb0">
                         ${(product.displayTitle)
                           ? product.displayTitle
-                          : response.data.organization.repositories.nodes[i].name
+                          : reposArr[i].name
                         }
                       </p>
                     </div>

@@ -115,7 +115,7 @@
       super helpful article on promises that provided the solution below:
       https://developers.google.com/web/fundamentals/getting-started/primers/promises#whats-all-the-fuss-about
     */
-      const glitch = 'https://able-viper.glitch.me/data';
+      const ncbiHacksData = 'https://able-viper.glitch.me/data';
 
       function get(url) {
         // Return a new promise.
@@ -148,11 +148,13 @@
         });
       }
 
-      get(glitch)
+      get(ncbiHacksData)
         .then( (response) => JSON.parse(response) )
         .then( (response) => {
           const productList = document.getElementById('softwareProducts');
-          const reposArr = response.data.organization.repositories.nodes;
+          const reposArr = response.data.organization.repositories.nodes
+            .filter( (node) => node.releases.totalCount > 0 );
+          console.log(`reposArr.length: ${reposArr.length}`);
 
           function labelMetadata(productId) {
             let metaArr = reposArr[productId].issues.edges;
@@ -190,46 +192,44 @@
           };
 
           for (let i=0; i<reposArr.length; i++) {
-            if (reposArr[i].releases.totalCount > 0) {
-              const product = {
-                "displayTitle": getRepoTitle(i),
-                "description": reposArr[i].description,
-                "repoURL": reposArr[i].url,
-                "manuscriptURL": getManuscriptURL(i),
-                "language": reposArr[i].primaryLanguage
-              };
+            const product = {
+              "displayTitle": getRepoTitle(i),
+              "description": reposArr[i].description,
+              "repoURL": reposArr[i].url,
+              "manuscriptURL": getManuscriptURL(i),
+              "language": reposArr[i].primaryLanguage
+            };
 
-              productList.innerHTML = productList.innerHTML + `
-              <div class="col-12 sm-col-6 md-col-4 p2 flex overflow-scroll">
-                <div class="col-12 border rounded-top bg-white">
-                  <div>
-                    <div class="p2 bg-soft-black rounded-top">
-                      <p class="white bold h2 mb0">
-                        ${(product.displayTitle)
-                          ? product.displayTitle
-                          : reposArr[i].name
-                        }
-                      </p>
-                    </div>
-                    <div class="p2">
-                      ${(product.description)
-                        ? `<p>${product.description}</p>`
+            productList.innerHTML = productList.innerHTML + `
+            <div class="col-12 sm-col-6 md-col-4 p2 flex overflow-scroll">
+              <div class="col-12 border rounded-top bg-white">
+                <div>
+                  <div class="p2 bg-soft-black rounded-top">
+                    <p class="white bold h2 mb0">
+                      ${(product.displayTitle)
+                        ? product.displayTitle
+                        : reposArr[i].name
+                      }
+                    </p>
+                  </div>
+                  <div class="p2">
+                    ${(product.description)
+                      ? `<p>${product.description}</p>`
+                      : ``
+                    }
+                    <div class="small">
+                      <a href="${product.repoURL}"><i class="fa fa-github fa-lg"></i> source code</a>
+                      ${(product.manuscriptURL)
+                        ? ` | <a href="${product.manuscriptURL}"><i class="fa fa-book fa-lg"></i> manuscript</a>`
                         : ``
                       }
-                      <div class="small">
-                        <a href="${product.repoURL}"><i class="fa fa-github fa-lg"></i> source code</a>
-                        ${(product.manuscriptURL)
-                          ? ` | <a href="${product.manuscriptURL}"><i class="fa fa-book fa-lg"></i> manuscript</a>`
-                          : ``
-                        }
-                      </div>
                     </div>
                   </div>
                 </div>
-              </div>`;
-              // console.log(labelMetadata(i))
-              console.log(getManuscriptURL(i));
-            }
+              </div>
+            </div>`;
+            // console.log(labelMetadata(i))
+            console.log(getManuscriptURL(i));
           }
 
           return response;

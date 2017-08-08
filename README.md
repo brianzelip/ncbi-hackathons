@@ -13,3 +13,4 @@ Changes to make on each repo that has shipped a MVP and that is to be included i
   - the body with a single line containing the full URL to the manuscript associated with the repo to be displayed in the main list
   - apply the label `manuscript` to the issue
 - make sure there is a full description at the head of the main repo page, so that this repo description can be displayed in the main list
+  - if there comes a need for a more robust description than what the GitHub repo description field allows, we can handle it with an issue like `title` and `manuscript`.

@@ -10,6 +10,7 @@ query {
         releases(first: 1) {
           totalCount
         }
+        pushedAt
         primaryLanguage {
           name
           color

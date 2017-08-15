@@ -108,6 +108,7 @@
 
         </div>
       </div>
+      <!-- {% include hackathon-product-section.html %} -->
     </section>
 
     <script>
@@ -153,8 +154,13 @@
         .then( (response) => {
           const productList = document.getElementById('softwareProducts');
           const reposArr = response.data.organization.repositories.nodes
-            .filter( (node) => node.releases.totalCount > 0 );
+            .filter( (node) => node.releases.totalCount > 0 )
+            .sort( (a,b) => {
+              // next work here - find most recent between updatedAt and pushedAt for each node (mostRecentUpdate), then sort the entire array of nodes based on each node's new mostRecentUpdate variable
+              new Date(b.pushedAt) - new Date(a.pushedAt)
+            } );
           // console.log(`reposArr.length: ${reposArr.length}`);
+          // console.log('reposArr', reposArr);
 
           function labelMetadata(productData) {
             let metaArr = productData.issues.edges;
@@ -180,7 +186,7 @@
             };
           };
 
-          function getRepoTitle(productData) {
+          function getDisplayName(productData) {
             if (labelMetadata(productData) !== undefined) {
               const metadata = labelMetadata(productData);
               return (metadata.hasOwnProperty("title"))
@@ -193,22 +199,24 @@
 
           reposArr.map( (repoData) => {
             const product = {
-              "displayTitle": getRepoTitle(repoData),
+              "repoName": repoData.name,
+              "displayName": getDisplayName(repoData),
               "description": repoData.description,
               "repoURL": repoData.url,
               "manuscriptURL": getManuscriptURL(repoData),
-              "language": repoData.primaryLanguage
+              "language": repoData.primaryLanguage.name,
+              "languageColor": repoData.primaryLanguage.color
             };
 
             productList.innerHTML = productList.innerHTML + `
             <div class="col-12 sm-col-6 md-col-4 p2 flex overflow-scroll">
               <div class="col-12 border rounded-top bg-white">
                 <div>
-                  <div class="p2 bg-soft-black rounded-top">
+                  <div class="p2 rounded-top" style="background-color: ${product.languageColor}">
                     <p class="white bold h2 mb0">
-                      ${(product.displayTitle)
-                        ? product.displayTitle
-                        : repoData.name
+                      ${(product.displayName)
+                        ? product.displayName
+                        : product.repoName
                       }
                     </p>
                   </div>
@@ -228,10 +236,10 @@
                 </div>
               </div>
             </div>`;
-            // console.log(getManuscriptURL(repoData));
+            // console.log(repoData.updatedAt);
           });
 
-          return response;
+          return;
         });
 
     </script>

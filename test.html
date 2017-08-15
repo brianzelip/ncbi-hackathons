@@ -157,10 +157,10 @@
             .filter( (node) => node.releases.totalCount > 0 )
             .sort( (a,b) => {
               // next work here - find most recent between updatedAt and pushedAt for each node (mostRecentUpdate), then sort the entire array of nodes based on each node's new mostRecentUpdate variable
-              new Date(b.pushedAt) - new Date(a.pushedAt)
+              return new Date(b.pushedAt) - new Date(a.pushedAt)
             } );
-          // console.log(`reposArr.length: ${reposArr.length}`);
-          // console.log('reposArr', reposArr);
+          console.log(`reposArr.length: ${reposArr.length}`);
+          console.log('reposArr', reposArr);
 
           function labelMetadata(productData) {
             let metaArr = productData.issues.edges;

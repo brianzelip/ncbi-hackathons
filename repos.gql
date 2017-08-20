@@ -7,6 +7,7 @@ query {
         name
         description
         url
+        homepageUrl
         releases(first: 1) {
           totalCount
         }

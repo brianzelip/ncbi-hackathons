@@ -214,6 +214,7 @@
               "displayName": getDisplayName(repoData),
               "description": repoData.description,
               "repoURL": repoData.url,
+              "homepageURL": repoData.homepageUrl,
               "manuscriptURL": getManuscriptURL(repoData),
               "language": repoData.primaryLanguage.name,
               "languageColor": repoData.primaryLanguage.color,
@@ -225,12 +226,15 @@
               <div class="col-12 border rounded-top bg-white">
                 <div>
                   <div class="p2 rounded-top" style="background-color: ${product.languageColor}">
-                    <p class="white bold h2 mb0">
+                    <a href="${(product.homepageURL !== '')
+                    ? product.homepageURL
+                    : product.url}"
+                    class="white bold h2 mb0">
                       ${(product.displayName)
                         ? product.displayName
                         : product.repoName
                       }
-                    </p>
+                    </a>
                   </div>
                   <div class="p2">
                     ${(product.description)

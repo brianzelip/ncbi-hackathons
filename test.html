@@ -154,7 +154,7 @@
         .then( (response) => {
           const productList = document.getElementById('softwareProducts');
           const reposArr = response.data.organization.repositories.nodes
-            .filter( (node) => node.releases.totalCount > 0 )
+            .filter( (node) => (hasMvp(node)) )
             .sort( (a,b) => {
               // next work here - find most recent between updatedAt and pushedAt for each node (mostRecentUpdate), then sort the entire array of nodes based on each node's new mostRecentUpdate variable
               return new Date(b.pushedAt) - new Date(a.pushedAt)
@@ -173,6 +173,17 @@
                 return metadata
               }, {} )
               : undefined;
+          };
+
+          function hasMvp(productData) {
+            if (labelMetadata(productData) !== undefined) {
+              const metadata = labelMetadata(productData);
+              return (metadata.hasOwnProperty("mvp"))
+                ? metadata.mvp
+                : false;
+            } else {
+              return false;
+            };
           };
 
           function getManuscriptURL(productData) {

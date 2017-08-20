@@ -23,7 +23,7 @@ query {
             }
           }
         }
-        issues(first: 100, labels: ["manuscript", "title"]) {
+        issues(first: 10, labels: ["metadata"]) {
           edges {
             node {
               title

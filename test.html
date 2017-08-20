@@ -208,13 +208,21 @@
             };
           };
 
+          function getHomepageUrl(productData) {
+            return (productData.homepageUrl === null)
+              ? false
+              : (productData.homepageUrl === '')
+                ? false
+                : productData.homepageUrl
+          };
+
           reposArr.map( (repoData) => {
             const product = {
               "repoName": repoData.name,
               "displayName": getDisplayName(repoData),
               "description": repoData.description,
-              "repoURL": repoData.url,
-              "homepageURL": repoData.homepageUrl,
+              "repoUrl": repoData.url,
+              "homepageUrl": getHomepageUrl(repoData),
               "manuscriptURL": getManuscriptURL(repoData),
               "language": repoData.primaryLanguage.name,
               "languageColor": repoData.primaryLanguage.color,
@@ -226,10 +234,11 @@
               <div class="col-12 border rounded-top bg-white">
                 <div>
                   <div class="p2 rounded-top" style="background-color: ${product.languageColor}">
-                    <a href="${(product.homepageURL !== '')
-                    ? product.homepageURL
-                    : product.url}"
-                    class="white bold h2 mb0">
+                    <a href="${
+                      (product.homepageUrl)
+                        ? product.homepageUrl
+                        : product.repoUrl
+                      }" class="white bold h2 mb0">
                       ${(product.displayName)
                         ? product.displayName
                         : product.repoName
@@ -242,7 +251,7 @@
                       : ``
                     }
                     <div class="small">
-                      <a href="${product.repoURL}"><i class="fa fa-github fa-lg"></i> source code</a>
+                      <a href="${product.repoUrl}"><i class="fa fa-github fa-lg"></i> source code</a>
                       ${(product.manuscriptURL)
                         ? ` | <a href="${product.manuscriptURL}"><i class="fa fa-book fa-lg"></i> manuscript</a>`
                         : ``

@@ -216,11 +216,23 @@
                 : productData.homepageUrl
           };
 
+          function getDisplayDescription(productData) {
+            if (labelMetadata(productData) !== undefined) {
+              const metadata = labelMetadata(productData);
+              return (metadata.hasOwnProperty("description"))
+                ? metadata.description
+                : false;
+            } else {
+              return false;
+            };
+          };
+
           reposArr.map( (repoData) => {
             const product = {
               "repoName": repoData.name,
               "displayName": getDisplayName(repoData),
-              "description": repoData.description,
+              "repoDescription": repoData.description,
+              "displayDescription": getDisplayDescription(repoData),
               "repoUrl": repoData.url,
               "homepageUrl": getHomepageUrl(repoData),
               "manuscriptURL": getManuscriptURL(repoData),
@@ -246,9 +258,11 @@
                     </a>
                   </div>
                   <div class="p2">
-                    ${(product.description)
-                      ? `<p>${product.description}</p>`
-                      : ``
+                    ${(product.displayDescription)
+                      ? `<p>${product.displayDescription}</p>`
+                      : (product.repoDescription)
+                        ? `<p>${product.repoDescription}</p>`
+                        : ``
                     }
                     <div class="small">
                       <a href="${product.repoUrl}"><i class="fa fa-github fa-lg"></i> source code</a>

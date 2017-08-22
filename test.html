@@ -111,6 +111,16 @@
       <!-- {% include hackathon-product-section.html %} -->
     </section>
 
+    <ul id="wtf" class="list-reset">
+    </ul>
+    <script>
+      const test = document.getElementById('wtf');
+      const arr = ["one", "two", "three", "four"];
+      for (let i=0; i<arr.length; i++) {
+        wtf.innerHTML = wtf.innerHTML + `<li><i class="fa fa-tag fa-lg"></i> ${arr[i]}</li>`
+      }
+    </script>
+
     <script>
     /*
       super helpful article on promises that provided the solution below:
@@ -238,8 +248,11 @@
               "manuscriptURL": getManuscriptURL(repoData),
               "language": repoData.primaryLanguage.name,
               "languageColor": repoData.primaryLanguage.color,
-              "topics": repoData.repositoryTopics.nodes
+              "topics": repoData.repositoryTopics.nodes,
+              "topicTest": ["one", "two", "three", "four"]
             };
+
+            function returnTopic(t) { return t; };
 
             productList.innerHTML = productList.innerHTML + `
             <div class="col-12 sm-col-6 md-col-4 p2 flex overflow-scroll">
@@ -265,11 +278,31 @@
                         : ``
                     }
                     <div class="small">
-                      <a href="${product.repoUrl}"><i class="fa fa-github fa-lg"></i> source code</a>
-                      ${(product.manuscriptURL)
-                        ? ` | <a href="${product.manuscriptURL}"><i class="fa fa-book fa-lg"></i> manuscript</a>`
-                        : ``
-                      }
+                      <ul class="list-reset">
+                        <li>
+                          <a href="${product.repoUrl}"><i class="fa fa-github fa-lg"></i> code</a>
+                        </li>
+                        ${(product.manuscriptURL)
+                          ? `<li>
+                               <a href="${product.manuscriptURL}"><i class="fa fa-book fa-lg"></i> manuscript</a>
+                            </li>`
+                          : ``
+                        }
+                        ${(product.language)
+                          ? `<li>
+                               <i class="fa fa-pencil fa-lg"></i> ${product.language}
+                            </li>`
+                          : ``
+                        }
+                        ${product.topicTest.map( (topic, i, arr) =>
+                          console.log(`<li>
+                            <i class="fa fa-tag fa-lg"></i> ${returnTopic(topic)}
+                          </li>`)
+                          )
+                        }
+                      </ul>
+                      <p><i class="fa fa-tag fa-lg"></i> ${product.topicTest[2]}</p>
+                      <p><i class="fa fa-tag fa-lg"></i> ${product.topicTest[0]}</p>
                     </div>
                   </div>
                 </div>

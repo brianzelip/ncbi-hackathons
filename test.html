@@ -48,6 +48,7 @@
       .rounded-right { border-radius:0 4px 4px 0; }
       .rounded-bottom { border-radius:0 0 4px 4px; }
       .rounded-left { border-radius:4px 0 0 4px; }
+      .hover-text-decoration-none:hover { text-decoration: none; }
     </style>
   </head>
 
@@ -258,18 +259,17 @@
             <div class="col-12 sm-col-6 md-col-4 p2 flex overflow-scroll">
               <div class="col-12 border rounded-top bg-white">
                 <div>
-                  <div class="p2 rounded-top" style="background-color: ${product.languageColor}">
-                    <a href="${
-                      (product.homepageUrl)
-                        ? product.homepageUrl
-                        : product.repoUrl
-                      }" class="white bold h2 mb0">
-                      ${(product.displayName)
+                  <a href="${ (product.homepageUrl)
+                    ? product.homepageUrl
+                    : product.repoUrl
+                  }" class="white bold h2 mb0 hover-text-decoration-none">
+                    <div class="p2 rounded-top" style="background-color: ${product.languageColor}">
+                      ${ (product.displayName)
                         ? product.displayName
                         : product.repoName
                       }
-                    </a>
-                  </div>
+                    </div>
+                  </a>
                   <div class="p2">
                     ${(product.displayDescription)
                       ? `<p>${product.displayDescription}</p>`

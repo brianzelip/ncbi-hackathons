@@ -147,7 +147,7 @@
           <h1 class="h0 mt0 px3 regular">NCBI Hackathon Products</h1>
 
           <div id="softwareProducts" class="flex flex-wrap p2">
-            <div id="spinner"></div>
+            <div id="spinner" class="mx-auto"></div>
           </div>
 
         </div>
@@ -347,8 +347,11 @@
           });
 
           return;
-        }).
-        then(function() {
+        })
+        .catch(function(err) {
+          productList.innerHTML = `Something broke: ${err.message}`;
+        })
+        .then(function() {
           document.getElementById('spinner').style.display = 'none';
         });
 

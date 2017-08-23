@@ -69,6 +69,25 @@
       .rounded-left { border-radius:4px 0 0 4px; }
       .hover-text-decoration-none:hover { text-decoration: none; }
 
+      /* spinner
+      
+         references:
+          - https://www.w3schools.com/howto/howto_css_loader.asp
+          - https://github.com/googlesamples/web-fundamentals/blob/gh-pages/fundamentals/getting-started/primers/async-best-example.html
+      */
+      .spinner {
+        border: 5px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 5px solid #3498db;
+        width: 75px;
+        height: 75px;
+        animation: spin 2.5s linear infinite;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
       /* yuck */
       ul.meta li { margin-bottom: .5rem; }
     </style>
@@ -127,7 +146,9 @@
 
           <h1 class="h0 mt0 px3 regular">NCBI Hackathon Products</h1>
 
-          <div id="softwareProducts" class="flex flex-wrap p2"></div>
+          <div id="softwareProducts" class="flex flex-wrap p2">
+            <div class="spinner"></div>
+          </div>
 
         </div>
       </div>
@@ -326,6 +347,9 @@
           });
 
           return;
+        }).
+        then(function() {
+          document.querySelector('.spinner').style.display = 'none';
         });
 
     </script>

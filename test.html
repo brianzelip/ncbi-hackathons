@@ -160,7 +160,7 @@
           const reposArr = response.data.organization.repositories.nodes
             .filter( (node) => (hasMvp(node)) )
             .sort( (a,b) => {
-              // next work here - find most recent between updatedAt and pushedAt for each node (mostRecentUpdate), then sort the entire array of nodes based on each node's new mostRecentUpdate variable
+              // TODO - find most recent between updatedAt and pushedAt for each node (mostRecentUpdate), then sort the entire array of nodes based on each node's new mostRecentUpdate variable
               return new Date(b.pushedAt) - new Date(a.pushedAt)
             } );
           console.log(`reposArr.length: ${reposArr.length}`);
@@ -255,9 +255,6 @@
               "topics": getTopics(repoData.repositoryTopics.nodes)
             };
 
-            console.log('product.topics', product.topics);
-            console.log('typeof(product.topics)', typeof(product.topics));
-
             productList.innerHTML = productList.innerHTML + `
             <div class="col-12 sm-col-6 md-col-4 p2 flex overflow-scroll">
               <div class="col-12 border rounded-top bg-white">
@@ -307,7 +304,6 @@
                 </div>
               </div>
             </div>`;
-            // console.log(repoData.updatedAt);
           });
 
           return;

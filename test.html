@@ -75,7 +75,7 @@
           - https://www.w3schools.com/howto/howto_css_loader.asp
           - https://github.com/googlesamples/web-fundamentals/blob/gh-pages/fundamentals/getting-started/primers/async-best-example.html
       */
-      .spinner {
+      #spinner {
         border: 5px solid #f3f3f3;
         border-radius: 50%;
         border-top: 5px solid #3498db;
@@ -147,7 +147,7 @@
           <h1 class="h0 mt0 px3 regular">NCBI Hackathon Products</h1>
 
           <div id="softwareProducts" class="flex flex-wrap p2">
-            <div class="spinner"></div>
+            <div id="spinner"></div>
           </div>
 
         </div>
@@ -349,7 +349,7 @@
           return;
         }).
         then(function() {
-          document.querySelector('.spinner').style.display = 'none';
+          document.getElementById('spinner').style.display = 'none';
         });
 
     </script>

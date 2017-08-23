@@ -69,15 +69,15 @@
       </nav>
     </header>
 
-    <section class="bg-lime">
+    <section class="">
       <div class="container p3">
 
         <div class="sm-flex">
           <div class="sm-col-6">
             <div class="p2">
 
-              <div class="p2 border border-white">
-                <p class="h2 white">Past Hackathons</p>
+              <div class="p2 border">
+                <p class="h2">Past Hackathons</p>
                 {% include upcoming-hackathons.html %}
               </div>
 
@@ -86,8 +86,8 @@
           <div class="sm-col-6">
             <div class="p2">
 
-              <div class="p2 border border-white">
-                <p class="h2 white">Upcoming Hackathons</p>
+              <div class="p2 border">
+                <p class="h2">Upcoming Hackathons</p>
                 {% include upcoming-hackathons.html %}
               </div>
 
@@ -110,16 +110,6 @@
       </div>
       <!-- {% include hackathon-product-section.html %} -->
     </section>
-
-    <ul id="wtf" class="list-reset">
-    </ul>
-    <script>
-      const test = document.getElementById('wtf');
-      const arr = ["one", "two", "three", "four"];
-      for (let i=0; i<arr.length; i++) {
-        wtf.innerHTML = wtf.innerHTML + `<li><i class="fa fa-tag fa-lg"></i> ${arr[i]}</li>`
-      }
-    </script>
 
     <script>
     /*
@@ -237,6 +227,16 @@
             };
           };
 
+          function getTopics(topicsArr) {
+            if (topicsArr.length < 1) { return false; };
+            let topicsAsHTML = '';
+            for (let i=0; i<topicsArr.length; i++) {
+              topicsAsHTML = topicsAsHTML + `<li><i class="fa fa-tag fa-lg"></i> ${topicsArr[i].topic.name}</li>`
+            };
+
+            return topicsAsHTML;
+          };
+
           reposArr.map( (repoData) => {
             const product = {
               "repoName": repoData.name,
@@ -248,11 +248,11 @@
               "manuscriptURL": getManuscriptURL(repoData),
               "language": repoData.primaryLanguage.name,
               "languageColor": repoData.primaryLanguage.color,
-              "topics": repoData.repositoryTopics.nodes,
-              "topicTest": ["one", "two", "three", "four"]
+              "topics": getTopics(repoData.repositoryTopics.nodes)
             };
 
-            function returnTopic(t) { return t; };
+            console.log('product.topics', product.topics);
+            console.log('typeof(product.topics)', typeof(product.topics));
 
             productList.innerHTML = productList.innerHTML + `
             <div class="col-12 sm-col-6 md-col-4 p2 flex overflow-scroll">
@@ -294,15 +294,11 @@
                             </li>`
                           : ``
                         }
-                        ${product.topicTest.map( (topic, i, arr) =>
-                          console.log(`<li>
-                            <i class="fa fa-tag fa-lg"></i> ${returnTopic(topic)}
-                          </li>`)
-                          )
+                        ${(product.topics)
+                          ? product.topics
+                          : ``
                         }
                       </ul>
-                      <p><i class="fa fa-tag fa-lg"></i> ${product.topicTest[2]}</p>
-                      <p><i class="fa fa-tag fa-lg"></i> ${product.topicTest[0]}</p>
                     </div>
                   </div>
                 </div>

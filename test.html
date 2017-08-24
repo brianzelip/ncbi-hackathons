@@ -6,10 +6,9 @@
   (b/c isotope has that explicit height requirement / doesn't work well w/ flexbox), https://github.com/patrickkunka/mixitup
   
   filter by:
-    - language
-    - topic
     - manuscript
     - shipped
+    - topic (? how to do this?)
   
   sort by:
     - updated timestamp asc
@@ -81,7 +80,7 @@
         border-top: 5px solid #3498db;
         width: 75px;
         height: 75px;
-        animation: spin 2.5s linear infinite;
+        animation: spin 1s linear infinite;
       }
       @keyframes spin {
         0% { transform: rotate(0deg); }
@@ -292,11 +291,12 @@
               "manuscriptURL": getManuscriptURL(repoData),
               "language": repoData.primaryLanguage.name,
               "languageColor": repoData.primaryLanguage.color,
+              "hasMvp": hasMvp(repoData),
               "topics": getTopics(repoData.repositoryTopics.nodes)
             };
 
             productList.innerHTML = productList.innerHTML + `
-            <div class="col-12 sm-col-6 md-col-4 p2 flex overflow-scroll">
+            <div class="col-12 sm-col-6 md-col-4 p2 flex overflow-scroll mix${(product.hasMvp) ? ` mvp` : ``}${(product.manuscriptURL) ? ` manucript` : ``}" data-language="${product.language}" data-updated="${true}" >
               <div class="col-12 border rounded-top bg-white">
                 <div>
                   <a href="${ (product.homepageUrl)

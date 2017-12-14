@@ -297,13 +297,13 @@
 
             productList.innerHTML = productList.innerHTML + `
             <div class="col-12 sm-col-6 md-col-4 p2 flex overflow-scroll">
-              <div class="col-12 border rounded-top bg-white">
+              <div class="col-12 shadow border rounded-top bg-white" style="box-shadow: inset 0 -.5rem 0 ${product.languageColor};">
                 <div>
                   <a href="${ (product.homepageUrl)
                     ? product.homepageUrl
                     : product.repoUrl
                   }" class="white bold h2 mb0 hover-text-decoration-none">
-                    <div class="p2 rounded-top" style="background-color: ${product.languageColor}">
+                    <div class="p2 rounded-top bg-soft-black">
                       ${ (product.displayName)
                         ? product.displayName
                         : product.repoName

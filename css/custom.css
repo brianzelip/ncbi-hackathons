@@ -396,7 +396,10 @@ float: none;
 .align-items-center { align-items: center; }/*mods*/
 .align-items-start { align-items: flex-start; }/*mods*/
 .align-items-end { align-items: flex-end; }/*mods*/
+.align-items-stretch { align-items: stretch; }
+.align-self-stretch { align-self: stretch; }
 
+.shadow { box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2); }
 
 :root {
 
